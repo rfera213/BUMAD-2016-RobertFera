@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">BU Kitchen Sink</string>
+    <string name="bu_today">BU Today</string>
+    <string name="bu_bus">BU Bus</string>
+    <string name="maps">Maps</string>
+    <string name="courses">Courses</string>
+    <string name="directory">Directory</string>
+    <string name="calandar">Calandar</string>
+    <string name="favorites">Favorites</string>
+    <string name="bu_today_article_name">BU Today Article Name</string>
+</resources>
