@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListAdapter;
-import android.widget.SimpleAdapter;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView;
@@ -18,12 +17,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class BUTodayArticleList extends ListActivity {
 
     // Data retrieved
-    ArrayList<HashMap<String, String>> data;
+    ArrayList<Article> betterData;
 
     // URL to get contacts JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/today/articles.json.php";
@@ -47,8 +45,8 @@ public class BUTodayArticleList extends ListActivity {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                                                HashMap<String, String> item = data.get(position);
-                                                String url = item.get(TAG_LINK);
+                                                Article item = betterData.get(position);
+                                                String url = item.getLink();
                                                 url = url + "uiwebview/";
 
                                                 Intent intent = new Intent(getApplicationContext(), BUTodayArticleDetail.class);
@@ -89,7 +87,7 @@ public class BUTodayArticleList extends ListActivity {
 
             Log.d("Response: ", "> " + jsonStr);
 
-            data = ParseJSON(jsonStr);
+            betterData = ParseJSON(jsonStr);
 
             return null;
         }
@@ -104,17 +102,17 @@ public class BUTodayArticleList extends ListActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            ListAdapter adapter = new SimpleAdapter(BUTodayArticleList.this, data, R.layout.list_item, new String[]{TAG_HEADLINE, TAG_SUBHEAD}, new int[]{R.id.headline, R.id.subhead});
+            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.list_item, betterData);
             setListAdapter(adapter);
         }
 
     }
 
-    private ArrayList<HashMap<String, String>> ParseJSON(String json) {
+    private ArrayList<Article> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
-                ArrayList<HashMap<String, String>> data = new ArrayList<HashMap<String, String>>();
+                ArrayList<Article> betterData = new ArrayList<Article>();
 
                 JSONObject jsonObj = new JSONObject(json);
 
@@ -130,20 +128,13 @@ public class BUTodayArticleList extends ListActivity {
                     String headline = c.getString(TAG_HEADLINE);
                     String subhead = c.getString(TAG_SUBHEAD);
                     String link = c.getString(TAG_LINK);
-
-                    // tmp hashmap for single student
-                    HashMap<String, String> article = new HashMap<String, String>();
-
-                    // adding each child node to HashMap key => value
-                    article.put(TAG_TYPE, type);
-                    article.put(TAG_HEADLINE, headline);
-                    article.put(TAG_SUBHEAD, subhead);
-                    article.put(TAG_LINK, link);
+                    String thumbnail = c.getString(TAG_THUMBNAIL);
 
                     // adding student to students list
-                    data.add(article);
+                    Article betterArticle = new Article(type, headline, subhead, thumbnail, link);
+                    betterData.add(betterArticle);
                 }
-                return data;
+                return betterData;
             } catch (JSONException e) {
                 e.printStackTrace();
                 return null;

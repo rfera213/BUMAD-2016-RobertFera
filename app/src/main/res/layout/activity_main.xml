@@ -12,101 +12,110 @@
     tools:context="robertfera.mad.bu.edu.bumad_2016_robertfera.MainActivity"
     android:background="#000000">
 
-    <GridLayout
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:columnCount="3"
-        android:rowCount="3">
+        android:layout_height="match_parent">
 
-        <ImageButton
+        <GridLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/bus"
-            android:id="@+id/imageButton2"
-            android:background="#000000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true" />
+            android:columnCount="3"
+            android:rowCount="3"
+            android:layout_gravity="center_horizontal" >
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/butoday"
-            android:onClick="loadBUTodayArticleList"
-            android:id="@+id/imageButton"
-            android:background="#000000"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/bus"
+                android:id="@+id/busModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/courses"
-            android:id="@+id/imageButton3"
-            android:background="#000000"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/butoday"
+                android:onClick="loadBUTodayArticleList"
+                android:id="@+id/butodayModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/maps"
-            android:id="@+id/imageButton6"
-            android:background="#000000"
-            android:layout_alignTop="@+id/imageButton5"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/courses"
+                android:id="@+id/coursesModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/favorites"
-            android:id="@+id/imageButton5"
-            android:background="#000000"
-            android:layout_alignTop="@+id/imageButton4"
-            android:layout_alignLeft="@+id/imageButton"
-            android:layout_alignStart="@+id/imageButton" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/maps"
+                android:id="@+id/mapsModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignTop="@+id/favoritesModule"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentEnd="true" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/calendar_01"
-            android:id="@+id/imageButton9"
-            android:background="#000000"
-            android:layout_alignTop="@+id/imageButton7"
-            android:layout_alignLeft="@+id/imageButton5"
-            android:layout_alignStart="@+id/imageButton5"
-            android:layout_row="1" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/favorites"
+                android:id="@+id/favoritesModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignTop="@+id/directoryModule"
+                android:layout_alignLeft="@+id/butodayModule"
+                android:layout_alignStart="@+id/butodayModule" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/directory"
-            android:layout_marginTop="61dp"
-            android:id="@+id/imageButton4"
-            android:background="#000000"
-            android:layout_below="@+id/imageButton2"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_row="2"
-            android:layout_column="0" />
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/calendar_01"
+                android:id="@+id/calendarModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_alignTop="@+id/emergencyModule"
+                android:layout_alignLeft="@+id/favoritesModule"
+                android:layout_alignStart="@+id/favoritesModule"
+                android:layout_row="1" />
 
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/safety"
-            android:id="@+id/imageButton7"
-            android:background="#000000"
-            android:layout_marginTop="76dp"
-            android:layout_below="@+id/imageButton4"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_row="2"
-            android:layout_column="1" />
-    </GridLayout>
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/directory"
+                android:id="@+id/directoryModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/busModule"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_row="2"
+                android:layout_column="0" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:srcCompat="@drawable/safety"
+                android:id="@+id/emergencyModule"
+                android:background="#000000"
+                android:layout_margin="5dp"
+                android:layout_below="@+id/directoryModule"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_row="2"
+                android:layout_column="1" />
+        </GridLayout>
+    </FrameLayout>
 
 </RelativeLayout>
