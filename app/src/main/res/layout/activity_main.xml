@@ -49,6 +49,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:srcCompat="@drawable/courses"
+                android:onClick="loadCoursesCollegeList"
                 android:id="@+id/coursesModule"
                 android:background="#000000"
                 android:layout_margin="5dp"
