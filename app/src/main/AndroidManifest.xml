@@ -27,7 +27,10 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".CoursesCollegeList"></activity>
+        <activity android:name=".CoursesCollegeList" />
+        <activity android:name=".CoursesCollegeSubjectsAndDepartmentsList" />
+        <activity android:name=".CoursesList" />
+        <activity android:name=".CourseDetail"></activity>
     </application>
 
 </manifest>
