@@ -33,7 +33,7 @@ public class BUTodayArticleDetail extends Activity {
 
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
-        progressBar = ProgressDialog.show(BUTodayArticleDetail.this, "WebView Example", "Loading...");
+        progressBar = ProgressDialog.show(BUTodayArticleDetail.this, "Loading Article Content", "Loading...");
 
         webview.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {

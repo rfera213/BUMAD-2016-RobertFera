@@ -15,7 +15,7 @@ android {
         applicationId "robertfera.mad.bu.edu.bumad_2016_robertfera"
         minSdkVersion 15
         targetSdkVersion 24
-        versionCode 2
+        versionCode 3
         versionName "1.0"
     }
     buildTypes {

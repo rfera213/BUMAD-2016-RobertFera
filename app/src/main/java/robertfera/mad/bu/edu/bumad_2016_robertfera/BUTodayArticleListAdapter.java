@@ -31,19 +31,16 @@ public class BUTodayArticleListAdapter extends ArrayAdapter<Article> {
 
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.list_item, null,true);
+        View rowView = inflater.inflate(R.layout.butoday_article, null,true);
 
         TextView headline = (TextView) rowView.findViewById(R.id.headline);
         TextView subhead = (TextView) rowView.findViewById(R.id.subhead);
         ImageView imageView = (ImageView) rowView.findViewById(R.id.thumbnail);
 
         Article article = objects.get(position);
-
-
         headline.setText(article.getHead());
         subhead.setText(article.getDeck());
         new DownloadImageTask(imageView).execute(article.getThumbnail());
-        Log.d("Image: ", article.getThumbnail());
 
         return rowView;
     };

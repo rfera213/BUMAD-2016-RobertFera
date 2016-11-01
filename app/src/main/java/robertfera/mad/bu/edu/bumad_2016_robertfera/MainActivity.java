@@ -49,4 +49,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, BUTodayArticleList.class);
         startActivity(intent);
     }
+
+    public void loadCoursesCollegeList(View view) {
+        Intent intent = new Intent(this, CoursesCollegeList.class);
+        startActivity(intent);
+    }
 }

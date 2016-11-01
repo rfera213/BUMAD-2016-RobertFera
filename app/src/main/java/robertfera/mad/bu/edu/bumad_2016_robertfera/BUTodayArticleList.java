@@ -84,9 +84,6 @@ public class BUTodayArticleList extends ListActivity {
 
             // Making a request to url and getting response
             String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-
-            Log.d("Response: ", "> " + jsonStr);
-
             betterData = ParseJSON(jsonStr);
 
             return null;
@@ -102,7 +99,7 @@ public class BUTodayArticleList extends ListActivity {
             /**
              * Updating parsed JSON data into ListView
              * */
-            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.list_item, betterData);
+            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.butoday_article, betterData);
             setListAdapter(adapter);
         }
 
