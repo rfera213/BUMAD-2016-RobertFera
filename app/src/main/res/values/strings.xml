@@ -8,4 +8,5 @@
     <string name="calandar">Calandar</string>
     <string name="favorites">Favorites</string>
     <string name="bu_today_article_name">BU Today Article Name</string>
+    <string name="title_activity_bus_map">Map</string>
 </resources>

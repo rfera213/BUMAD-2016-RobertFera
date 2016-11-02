@@ -27,6 +27,7 @@
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/bus"
+                android:onClick="loadBusMap"
                 android:id="@+id/busModule"
                 android:background="#000000"
                 android:layout_margin="5dp"
