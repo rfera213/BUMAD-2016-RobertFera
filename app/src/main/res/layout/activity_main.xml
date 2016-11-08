@@ -97,6 +97,7 @@
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/directory"
                 android:id="@+id/directoryModule"
+                android:onClick="loadDirectorySearch"
                 android:background="#000000"
                 android:layout_margin="5dp"
                 android:layout_below="@+id/busModule"
