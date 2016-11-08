@@ -1,7 +1,6 @@
 package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
-import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
@@ -21,9 +20,9 @@ import java.util.ArrayList;
 public class BUTodayArticleList extends ListActivity {
 
     // Data retrieved
-    ArrayList<Article> betterData;
+    ArrayList<Article> data;
 
-    // URL to get contacts JSON
+    // URL to get article JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/today/articles.json.php";
 
     // JSON Node names
@@ -45,7 +44,7 @@ public class BUTodayArticleList extends ListActivity {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 
-                                                Article item = betterData.get(position);
+                                                Article item = data.get(position);
                                                 String url = item.getLink();
                                                 url = url + "uiwebview/";
 
@@ -54,7 +53,6 @@ public class BUTodayArticleList extends ListActivity {
                                                 startActivity(intent);
                                             }
                                         });
-
 
         // Calling async task to get json
         new GetData().execute();
@@ -65,16 +63,9 @@ public class BUTodayArticleList extends ListActivity {
      */
     private class GetData extends AsyncTask<Void, Void, Void> {
 
-        ProgressDialog pDialog;
-
         @Override
         protected void onPreExecute() {
             super.onPreExecute();
-            // Showing progress dialog
-            pDialog = new ProgressDialog(BUTodayArticleList.this);
-            pDialog.setMessage("Please wait...");
-            pDialog.setCancelable(false);
-            pDialog.show();
         }
 
         @Override
@@ -84,7 +75,7 @@ public class BUTodayArticleList extends ListActivity {
 
             // Making a request to url and getting response
             String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            betterData = ParseJSON(jsonStr);
+            data = ParseJSON(jsonStr);
 
             return null;
         }
@@ -92,14 +83,11 @@ public class BUTodayArticleList extends ListActivity {
         @Override
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
-            // Dismiss the progress dialog
-            if (pDialog.isShowing())
-                pDialog.dismiss();
 
             /**
              * Updating parsed JSON data into ListView
              * */
-            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.butoday_article, betterData);
+            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.butoday_article, data);
             setListAdapter(adapter);
         }
 
@@ -117,7 +105,7 @@ public class BUTodayArticleList extends ListActivity {
                 JSONObject resultSet = jsonObj.getJSONObject(TAG_RESULTSET);
                 JSONArray results = resultSet.getJSONArray(TAG_RESULT);
 
-                // looping through All Students
+                // looping through data
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject c = results.getJSONObject(i);
 

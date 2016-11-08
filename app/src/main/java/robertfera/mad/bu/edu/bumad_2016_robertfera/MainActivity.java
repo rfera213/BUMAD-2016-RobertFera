@@ -45,13 +45,22 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void loadBUTodayArticleList(View view) {
-        // Do something in response to button
         Intent intent = new Intent(this, BUTodayArticleList.class);
         startActivity(intent);
     }
 
     public void loadCoursesCollegeList(View view) {
         Intent intent = new Intent(this, CoursesCollegeList.class);
+        startActivity(intent);
+    }
+
+    public void loadBusMap(View view) {
+        Intent intent = new Intent(this, BusMap.class);
+        startActivity(intent);
+    }
+
+    public void loadDirectorySearch(View view) {
+        Intent intent = new Intent(this, DirectorySearch.class);
         startActivity(intent);
     }
 }

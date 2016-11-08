@@ -21,7 +21,7 @@ public class CoursesCollegeList extends ListActivity {
     // Data retrieved
     ArrayList<CoursesCollege> data;
 
-    // URL to get contacts JSON
+    // URL to get JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/courses/colleges.json.php";
 
     // JSON Node names
@@ -38,7 +38,6 @@ public class CoursesCollegeList extends ListActivity {
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
 
                 CoursesCollege item = data.get(position);
                 String college_name = item.getName();
