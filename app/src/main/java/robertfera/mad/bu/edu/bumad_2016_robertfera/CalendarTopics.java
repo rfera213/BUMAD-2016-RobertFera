@@ -16,47 +16,37 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
+public class CalendarTopics extends ListActivity {
 
-    // Data retrieved
-    ArrayList<CoursesCollegeSubject> data;
+    ArrayList<CalendarTopic> data;
 
-    // URL to get contacts JSON
-    private String url = "http://www.bu.edu/bumobile/rpc/courses/subjects.json.php";
+    // URL to get JSON
+    private static String url = "http://www.bu.edu/bumobile/rpc/calendar/topics.json.php";
 
     // JSON Node names
     private static final String TAG_RESULTSET = "ResultSet";
     private static final String TAG_RESULT = "Result";
-    private static final String TAG_SUBJECTNAME = "subject_name";
-    private static final String TAG_SUBJECTPREFIXES = "prefixes";
+    private static final String TAG_TOPICNAME = "name";
+    private static final String TAG_TOPICID = "node_id";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_college_subjects_and_departments_list);
+        setContentView(R.layout.activity_calendar_topics);
 
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CoursesCollegeSubject item = data.get(position);
-                String subject_name = item.getSubject_name();
-                String subject_prefix = item.getPrefixes();
+                CalendarTopic item = data.get(position);
+                String node_id = item.getId();
 
-                Bundle extras = getIntent().getExtras();
-                String code = extras.getString("college_code");
-
-                Intent intent = new Intent(getApplicationContext(), CoursesList.class);
-                intent.putExtra("subject_name", subject_name);
-                intent.putExtra("subject_prefix", subject_prefix);
-                intent.putExtra("college_code", code);
+                Intent intent = new Intent(getApplicationContext(), CalendarEvents.class);
+                intent.putExtra("node_id", node_id);
                 startActivity(intent);
             }
         });
 
-        Bundle extras = getIntent().getExtras();
-        String college_code = extras.getString("college_code");
-        url+= "?q=" + college_code;
         new GetData().execute();
     }
 
@@ -92,19 +82,20 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
 
             ArrayList<String> listData = new ArrayList<String>();
             for (int i = 0; i < data.size(); i++) {
-                listData.add(data.get(i).getSubject_name());
+                listData.add(data.get(i).getName());
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesCollegeSubjectsAndDepartmentsList.this, android.R.layout.simple_list_item_1, listData);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarTopics.this, android.R.layout.simple_list_item_1, listData);
             setListAdapter(adapter);
         }
 
     }
 
-    private ArrayList<CoursesCollegeSubject> ParseJSON(String json) {
+    private ArrayList<CalendarTopic> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
-                ArrayList<CoursesCollegeSubject> data = new ArrayList<CoursesCollegeSubject>();
+                ArrayList<CalendarTopic> data = new ArrayList<CalendarTopic>();
 
                 JSONObject jsonObj = new JSONObject(json);
 
@@ -116,11 +107,11 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject c = results.getJSONObject(i);
 
-                    String name = c.getString(TAG_SUBJECTNAME);
-                    String prefixes = c.getString(TAG_SUBJECTPREFIXES);
+                    String name = c.getString(TAG_TOPICNAME);
+                    String id = c.getString(TAG_TOPICID);
 
-                    CoursesCollegeSubject coursesCollegeSubject = new CoursesCollegeSubject(name, prefixes);
-                    data.add(coursesCollegeSubject);
+                    CalendarTopic calendarTopic = new CalendarTopic(name, id);
+                    data.add(calendarTopic);
                 }
                 return data;
             } catch (JSONException e) {

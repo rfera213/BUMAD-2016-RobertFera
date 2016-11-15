@@ -16,47 +16,42 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
+public class CalendarEvents extends ListActivity {
 
-    // Data retrieved
-    ArrayList<CoursesCollegeSubject> data;
+    ArrayList<CalendarEvent> data;
 
-    // URL to get contacts JSON
-    private String url = "http://www.bu.edu/bumobile/rpc/courses/subjects.json.php";
+    // URL to get JSON
+    private static String url = "http://www.bu.edu/bumobile/rpc/calendar/events.json.php";
 
     // JSON Node names
     private static final String TAG_RESULTSET = "ResultSet";
     private static final String TAG_RESULT = "Result";
-    private static final String TAG_SUBJECTNAME = "subject_name";
-    private static final String TAG_SUBJECTPREFIXES = "prefixes";
+    private static final String TAG_EVENTID = "id";
+    private static final String TAG_EVENTSUMMARY = "summary";
+    private static final String TAG_EVENTTIME = "time";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_courses_college_subjects_and_departments_list);
+        setContentView(R.layout.activity_calendar_events);
 
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CoursesCollegeSubject item = data.get(position);
-                String subject_name = item.getSubject_name();
-                String subject_prefix = item.getPrefixes();
+                CalendarEvent item = data.get(position);
+                String node_id = item.getId();
 
-                Bundle extras = getIntent().getExtras();
-                String code = extras.getString("college_code");
-
-                Intent intent = new Intent(getApplicationContext(), CoursesList.class);
-                intent.putExtra("subject_name", subject_name);
-                intent.putExtra("subject_prefix", subject_prefix);
-                intent.putExtra("college_code", code);
+                Intent intent = new Intent(getApplicationContext(), CalendarEventDetail.class);
+                intent.putExtra("id", node_id);
                 startActivity(intent);
             }
         });
 
         Bundle extras = getIntent().getExtras();
-        String college_code = extras.getString("college_code");
-        url+= "?q=" + college_code;
+        String node_id = extras.getString("node_id");
+        url+= "?tid=" + node_id;
+
         new GetData().execute();
     }
 
@@ -79,6 +74,9 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
             String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
             data = ParseJSON(jsonStr);
 
+            // resets URL for next potential fetch
+            url = "http://www.bu.edu/bumobile/rpc/calendar/events.json.php";
+
             return null;
         }
 
@@ -91,20 +89,23 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
              * */
 
             ArrayList<String> listData = new ArrayList<String>();
-            for (int i = 0; i < data.size(); i++) {
-                listData.add(data.get(i).getSubject_name());
+            if (data != null) {
+                for (int i = 0; i < data.size(); i++) {
+                    listData.add(data.get(i).getSummary());
+                }
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesCollegeSubjectsAndDepartmentsList.this, android.R.layout.simple_list_item_1, listData);
+
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarEvents.this, android.R.layout.simple_list_item_1, listData);
             setListAdapter(adapter);
         }
 
     }
 
-    private ArrayList<CoursesCollegeSubject> ParseJSON(String json) {
+    private ArrayList<CalendarEvent> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
-                ArrayList<CoursesCollegeSubject> data = new ArrayList<CoursesCollegeSubject>();
+                ArrayList<CalendarEvent> data = new ArrayList<CalendarEvent>();
 
                 JSONObject jsonObj = new JSONObject(json);
 
@@ -116,11 +117,12 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject c = results.getJSONObject(i);
 
-                    String name = c.getString(TAG_SUBJECTNAME);
-                    String prefixes = c.getString(TAG_SUBJECTPREFIXES);
+                    String summary = c.getString(TAG_EVENTSUMMARY);
+                    String id = c.getString(TAG_EVENTID);
+                    String time = c.getString(TAG_EVENTTIME);
 
-                    CoursesCollegeSubject coursesCollegeSubject = new CoursesCollegeSubject(name, prefixes);
-                    data.add(coursesCollegeSubject);
+                    CalendarEvent calendarEvent = new CalendarEvent(id, summary, time);
+                    data.add(calendarEvent);
                 }
                 return data;
             } catch (JSONException e) {

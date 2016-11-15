@@ -85,6 +85,7 @@
                 android:layout_height="100dp"
                 app:srcCompat="@drawable/calendar_01"
                 android:id="@+id/calendarModule"
+                android:onClick="loadCalendarTopics"
                 android:background="#000000"
                 android:layout_margin="5dp"
                 android:layout_alignTop="@+id/emergencyModule"

@@ -55,7 +55,10 @@
             android:name=".BusMap"
             android:label="@string/title_activity_bus_map" />
         <activity android:name=".DirectorySearch" />
-        <activity android:name=".DirectoryDetail"></activity>
+        <activity android:name=".DirectoryDetail" />
+        <activity android:name=".CalendarTopics" />
+        <activity android:name=".CalendarEvents" />
+        <activity android:name=".CalendarEventDetail"></activity>
     </application>
 
 </manifest>
