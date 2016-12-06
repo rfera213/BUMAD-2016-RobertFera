@@ -109,11 +109,11 @@ public class BUTodayArticleList extends ListActivity {
                 for (int i = 0; i < results.length(); i++) {
                     JSONObject c = results.getJSONObject(i);
 
-                    String type = c.getString(TAG_TYPE);
-                    String headline = c.getString(TAG_HEADLINE);
-                    String subhead = c.getString(TAG_SUBHEAD);
-                    String link = c.getString(TAG_LINK);
-                    String thumbnail = c.getString(TAG_THUMBNAIL);
+                    String type = (c.has(TAG_TYPE)) ? c.getString(TAG_TYPE) : "";
+                    String headline = (c.has(TAG_HEADLINE)) ? c.getString(TAG_HEADLINE) : "";
+                    String subhead = (c.has(TAG_SUBHEAD)) ? c.getString(TAG_SUBHEAD) : "";
+                    String link = (c.has(TAG_LINK)) ? c.getString(TAG_LINK) : "";
+                    String thumbnail = (c.has(TAG_THUMBNAIL)) ? c.getString(TAG_THUMBNAIL) : "";
 
                     // adding student to students list
                     Article betterArticle = new Article(type, headline, subhead, thumbnail, link);

@@ -58,7 +58,8 @@
         <activity android:name=".DirectoryDetail" />
         <activity android:name=".CalendarTopics" />
         <activity android:name=".CalendarEvents" />
-        <activity android:name=".CalendarEventDetail"></activity>
+        <activity android:name=".CalendarEventDetail" />
+        <activity android:name=".Map"></activity>
     </application>
 
 </manifest>

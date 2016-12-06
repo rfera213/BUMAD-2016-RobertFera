@@ -3,6 +3,7 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 
 import com.google.android.gms.appindexing.AppIndex;
@@ -47,6 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadCalendarTopics(View view) {
         Intent intent = new Intent(this, CalendarTopics.class);
+        startActivity(intent);
+    }
+
+    public void loadMap(View view) {
+        Log.d("hey", "hey");
+        Intent intent = new Intent(this, Map.class);
         startActivity(intent);
     }
 }
