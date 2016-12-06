@@ -14,7 +14,7 @@
 
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent" >
 
         <GridLayout
             android:layout_width="wrap_content"
@@ -23,102 +23,232 @@
             android:rowCount="3"
             android:layout_gravity="center_horizontal" >
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/bus"
-                android:onClick="loadBusMap"
-                android:id="@+id/busModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/butoday"
-                android:onClick="loadBUTodayArticleList"
-                android:id="@+id/butodayModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignParentTop="true"
-                android:layout_centerHorizontal="true" />
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/bus"
+                    android:onClick="loadBusMap"
+                    android:id="@+id/busModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true" />
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/courses"
-                android:onClick="loadCoursesCollegeList"
-                android:id="@+id/coursesModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignParentTop="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Bus"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/maps"
-                android:id="@+id/mapsModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignTop="@+id/favoritesModule"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/favorites"
-                android:id="@+id/favoritesModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignTop="@+id/directoryModule"
-                android:layout_alignLeft="@+id/butodayModule"
-                android:layout_alignStart="@+id/butodayModule" />
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/butoday"
+                    android:onClick="loadBUTodayArticleList"
+                    android:id="@+id/butodayModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerHorizontal="true" />
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/calendar_01"
-                android:id="@+id/calendarModule"
-                android:onClick="loadCalendarTopics"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_alignTop="@+id/emergencyModule"
-                android:layout_alignLeft="@+id/favoritesModule"
-                android:layout_alignStart="@+id/favoritesModule"
-                android:layout_row="1" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="BU Today"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/directory"
-                android:id="@+id/directoryModule"
-                android:onClick="loadDirectorySearch"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_below="@+id/busModule"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_row="2"
-                android:layout_column="0" />
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
 
-            <ImageButton
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                app:srcCompat="@drawable/safety"
-                android:id="@+id/emergencyModule"
-                android:background="#000000"
-                android:layout_margin="5dp"
-                android:layout_below="@+id/directoryModule"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_row="2"
-                android:layout_column="1" />
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/courses"
+                    android:onClick="loadCoursesCollegeList"
+                    android:id="@+id/coursesModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Courses"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/maps"
+                    android:onClick="loadMap"
+                    android:id="@+id/mapsModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignTop="@+id/favoritesModule"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Maps"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/favorites"
+                    android:id="@+id/favoritesModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignTop="@+id/directoryModule"
+                    android:layout_alignLeft="@+id/butodayModule"
+                    android:layout_alignStart="@+id/butodayModule" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Favorites"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/calendar_01"
+                    android:id="@+id/calendarModule"
+                    android:onClick="loadCalendarTopics"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_alignTop="@+id/emergencyModule"
+                    android:layout_alignLeft="@+id/favoritesModule"
+                    android:layout_alignStart="@+id/favoritesModule"
+                    android:layout_row="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Calendar"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/directory"
+                    android:id="@+id/directoryModule"
+                    android:onClick="loadDirectorySearch"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@+id/busModule"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_row="2"
+                    android:layout_column="0" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Directory"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_marginBottom="30dp" >
+
+                <ImageButton
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    app:srcCompat="@drawable/safety"
+                    android:id="@+id/emergencyModule"
+                    android:background="#000000"
+                    android:layout_marginRight="5dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="0dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_below="@+id/directoryModule"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_row="2"
+                    android:layout_column="1" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Emergency"
+                    android:textSize="20dp"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center" />
+            </LinearLayout>
+
         </GridLayout>
     </FrameLayout>
 
