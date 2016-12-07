@@ -6,11 +6,16 @@
     android:layout_height="match_parent"
     tools:context="robertfera.mad.bu.edu.bumad_2016_robertfera.CalendarEvents">
 
+    <robertfera.mad.bu.edu.bumad_2016_robertfera.NavBar
+        android:id="@+id/navBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <ListView
         android:id="@android:id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/navBar" />
 </RelativeLayout>

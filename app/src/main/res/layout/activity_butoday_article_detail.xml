@@ -5,9 +5,15 @@
     android:layout_height="match_parent"
     tools:context="robertfera.mad.bu.edu.bumad_2016_robertfera.BUTodayArticleDetail">
 
+    <robertfera.mad.bu.edu.bumad_2016_robertfera.NavBar
+        android:id="@+id/navBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
     <WebView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/webview"
-        android:scaleType="fitXY" />
+        android:scaleType="fitXY"
+        android:layout_below="@+id/navBar" />
 </RelativeLayout>
