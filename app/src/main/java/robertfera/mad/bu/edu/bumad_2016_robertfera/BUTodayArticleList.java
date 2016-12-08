@@ -1,7 +1,6 @@
 package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.content.Intent;
 import android.util.Log;
@@ -17,13 +16,9 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class BUTodayArticleList extends ListActivity {
+public class BUTodayArticleList extends ListActivity implements DataPasser {
 
-    // Data retrieved
-    ArrayList<Article> data;
-
-    // URL to get article JSON
-    private static String url = "http://www.bu.edu/bumobile/rpc/today/articles.json.php";
+    DataRetriever dataRetriever;
 
     // JSON Node names
     private static final String TAG_RESULTSET = "ResultSet";
@@ -39,12 +34,13 @@ public class BUTodayArticleList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_butoday_article_list);
 
+        dataRetriever = new DataRetriever(this, "http://www.bu.edu/bumobile/rpc/today/articles.json.php");
+
         ListView listView = getListView();
         listView.setOnItemClickListener(new OnItemClickListener() {
                                             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-                                                Article item = data.get(position);
+                                                Article item = ((ArrayList<Article>)dataRetriever.getData()).get(position);
                                                 String url = item.getLink();
                                                 url = url + "uiwebview/";
 
@@ -53,47 +49,9 @@ public class BUTodayArticleList extends ListActivity {
                                                 startActivity(intent);
                                             }
                                         });
-
-        // Calling async task to get json
-        new GetData().execute();
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-            ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.butoday_article, data);
-            setListAdapter(adapter);
-        }
-
-    }
-
-    private ArrayList<Article> ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
@@ -128,5 +86,10 @@ public class BUTodayArticleList extends ListActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+        ListAdapter adapter = new BUTodayArticleListAdapter(BUTodayArticleList.this, R.layout.butoday_article, (ArrayList<Article>) data);
+        setListAdapter(adapter);
     }
 }
