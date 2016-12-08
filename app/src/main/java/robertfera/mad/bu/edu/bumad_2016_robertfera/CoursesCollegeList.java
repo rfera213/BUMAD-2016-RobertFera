@@ -2,7 +2,6 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,12 +15,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CoursesCollegeList extends ListActivity {
+public class CoursesCollegeList extends ListActivity implements DataPasser {
 
-    // Data retrieved
-    ArrayList<CoursesCollege> data;
+    DataRetriever dataRetriever;
 
-    // URL to get JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/courses/colleges.json.php";
 
     // JSON Node names
@@ -35,11 +32,14 @@ public class CoursesCollegeList extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_courses_college_list);
 
+        dataRetriever = new DataRetriever(this, url);
+        dataRetriever.fetch();
+
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CoursesCollege item = data.get(position);
+                CoursesCollege item = ((ArrayList<CoursesCollege>)dataRetriever.getData()).get(position);
                 String college_name = item.getName();
                 String college_code = item.getCode();
 
@@ -50,46 +50,9 @@ public class CoursesCollegeList extends ListActivity {
             }
         });
 
-        // Calling async task to get json
-        new GetData().execute();
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-            ListAdapter adapter = new CoursesCollegeListAdapter(CoursesCollegeList.this, R.layout.courses_college, data);
-            setListAdapter(adapter);
-        }
-
-    }
-
-    private ArrayList<CoursesCollege> ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
@@ -120,5 +83,10 @@ public class CoursesCollegeList extends ListActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+        ListAdapter adapter = new CoursesCollegeListAdapter(CoursesCollegeList.this, R.layout.courses_college, (ArrayList<CoursesCollege>) data);
+        setListAdapter(adapter);
     }
 }

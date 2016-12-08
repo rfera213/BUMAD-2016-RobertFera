@@ -20,6 +20,8 @@ public class BUTodayArticleList extends ListActivity implements DataPasser {
 
     DataRetriever dataRetriever;
 
+    private String url = "http://www.bu.edu/bumobile/rpc/today/articles.json.php";
+
     // JSON Node names
     private static final String TAG_RESULTSET = "ResultSet";
     private static final String TAG_RESULT = "Result";
@@ -34,7 +36,8 @@ public class BUTodayArticleList extends ListActivity implements DataPasser {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_butoday_article_list);
 
-        dataRetriever = new DataRetriever(this, "http://www.bu.edu/bumobile/rpc/today/articles.json.php");
+        dataRetriever = new DataRetriever(this, url);
+        dataRetriever.fetch();
 
         ListView listView = getListView();
         listView.setOnItemClickListener(new OnItemClickListener() {

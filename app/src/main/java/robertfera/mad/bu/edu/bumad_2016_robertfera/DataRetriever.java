@@ -20,6 +20,9 @@ public class DataRetriever extends AsyncTask<Void, Void, Void> {
     public DataRetriever(Activity delegate, String url) {
         this.delegate = delegate;
         this.url = url;
+    }
+
+    public void fetch() {
         this.execute();
     }
 
@@ -36,6 +39,7 @@ public class DataRetriever extends AsyncTask<Void, Void, Void> {
         WebRequest webreq = new WebRequest();
 
         // Making a request to url and getting response
+        Log.d("Hi", url);
         jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
 
         // calling parseJson of delegate to sort data

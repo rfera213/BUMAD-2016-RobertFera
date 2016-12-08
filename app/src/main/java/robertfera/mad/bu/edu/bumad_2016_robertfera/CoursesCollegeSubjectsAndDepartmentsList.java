@@ -2,13 +2,12 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.ArrayAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -16,12 +15,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
+public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity implements DataPasser{
 
-    // Data retrieved
-    ArrayList<CoursesCollegeSubject> data;
+    DataRetriever dataRetriever;
 
-    // URL to get contacts JSON
     private String url = "http://www.bu.edu/bumobile/rpc/courses/subjects.json.php";
 
     // JSON Node names
@@ -39,7 +36,7 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CoursesCollegeSubject item = data.get(position);
+                CoursesCollegeSubject item = ((ArrayList<CoursesCollegeSubject>)dataRetriever.getData()).get(position);
                 String subject_name = item.getSubject_name();
                 String subject_prefix = item.getPrefixes();
 
@@ -57,50 +54,12 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
         Bundle extras = getIntent().getExtras();
         String college_code = extras.getString("college_code");
         url+= "?q=" + college_code;
-        new GetData().execute();
+
+        dataRetriever = new DataRetriever(this, url);
+        dataRetriever.fetch();
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-
-            ArrayList<String> listData = new ArrayList<String>();
-            for (int i = 0; i < data.size(); i++) {
-                listData.add(data.get(i).getSubject_name());
-            }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesCollegeSubjectsAndDepartmentsList.this, android.R.layout.simple_list_item_1, listData);
-            setListAdapter(adapter);
-        }
-
-    }
-
-    private ArrayList<CoursesCollegeSubject> ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
@@ -131,5 +90,16 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+
+        ArrayList<String> listData = new ArrayList<String>();
+        for (int i = 0; i < data.size(); i++) {
+            listData.add(((ArrayList<CoursesCollegeSubject>)data).get(i).getSubject_name());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesCollegeSubjectsAndDepartmentsList.this, android.R.layout.simple_list_item_1, listData);
+        setListAdapter(adapter);
     }
 }
