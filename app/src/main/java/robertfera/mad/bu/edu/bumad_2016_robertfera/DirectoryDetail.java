@@ -4,6 +4,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.view.Window;
 import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
@@ -15,6 +16,11 @@ public class DirectoryDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // hide toolbar
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_directory_detail);
 
         TextView fullname = (TextView) findViewById(R.id.fullname);
