@@ -18,12 +18,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class DirectorySearch extends ListActivity {
+public class DirectorySearch extends ListActivity implements DataPasser {
 
-    // Data retrieved
-    ArrayList<DirectoryEntry> data;
+    DataRetriever dataRetriever;
 
-    // URL to get JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/directory/search.json.php";
 
     // JSON Node names
@@ -42,12 +40,13 @@ public class DirectorySearch extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directory_search);
 
+        dataRetriever = new DataRetriever(this, url);
+
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-
-                DirectoryEntry directoryEntry = data.get(position);
+                DirectoryEntry directoryEntry = ((ArrayList<DirectoryEntry>)dataRetriever.getData()).get(position);
                 String fullname = directoryEntry.getFullname();
                 String title = directoryEntry.getTitle();
                 String department = directoryEntry.getDepartment();
@@ -71,7 +70,8 @@ public class DirectorySearch extends ListActivity {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 url+= "?q=" + s;
-                new GetData().execute();
+                dataRetriever.setUrl(url);
+                dataRetriever.fetch();
                 sv.clearFocus(); // prevents the double fetch
                 url = "http://www.bu.edu/bumobile/rpc/directory/search.json.php"; // resets URL
                 return false;
@@ -86,57 +86,15 @@ public class DirectorySearch extends ListActivity {
         int searchCloseButtonId = sv.getContext().getResources().getIdentifier("android:id/search_close_btn", null, null);
         ImageView closeButton = (ImageView)sv.findViewById(searchCloseButtonId);
         closeButton.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View v) {
+                sv.setQuery("", false);
                 setListAdapter(null);
-                Log.d("CLOSE", "CLOSE");
             }
         });
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-
-            ArrayList<String> listData = new ArrayList<String>();
-            for (int i = 0; i < data.size(); i++) {
-                listData.add(data.get(i).getFullname());
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(DirectorySearch.this, android.R.layout.simple_list_item_1, listData);
-            setListAdapter(adapter);
-        }
-
-    }
-
-    private ArrayList<DirectoryEntry> ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
@@ -177,5 +135,15 @@ public class DirectorySearch extends ListActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+        ArrayList<String> listData = new ArrayList<String>();
+        for (int i = 0; i < data.size(); i++) {
+            listData.add(((ArrayList<DirectoryEntry>)data).get(i).getFullname());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(DirectorySearch.this, android.R.layout.simple_list_item_1, listData);
+        setListAdapter(adapter);
     }
 }

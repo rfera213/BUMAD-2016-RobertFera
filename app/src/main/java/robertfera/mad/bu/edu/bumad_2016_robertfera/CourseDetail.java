@@ -1,5 +1,6 @@
 package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
+import android.view.Window;
 import android.widget.TextView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +10,11 @@ public class CourseDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // hide toolbar
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
+
         setContentView(R.layout.activity_course_detail);
 
         TextView courseTitle = (TextView) findViewById(R.id.name);

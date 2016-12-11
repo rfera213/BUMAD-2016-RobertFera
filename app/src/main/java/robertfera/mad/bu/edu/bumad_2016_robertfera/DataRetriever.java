@@ -22,11 +22,13 @@ public class DataRetriever extends AsyncTask<Void, Void, Void> {
         this.url = url;
     }
 
+    public void setUrl(String url) { this.url = url; }
+
+    public ArrayList<?> getData() { return this.data; }
+
     public void fetch() {
         this.execute();
     }
-
-    public ArrayList<?> getData() { return this.data; }
 
     @Override
     protected void onPreExecute() {

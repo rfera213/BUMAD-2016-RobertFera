@@ -2,7 +2,6 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +15,10 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 
-public class CalendarTopics extends ListActivity {
+public class CalendarTopics extends ListActivity implements DataPasser {
 
-    ArrayList<CalendarTopic> data;
+    DataRetriever dataRetriever;
 
-    // URL to get JSON
     private static String url = "http://www.bu.edu/bumobile/rpc/calendar/topics.json.php";
 
     // JSON Node names
@@ -34,11 +32,14 @@ public class CalendarTopics extends ListActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar_topics);
 
+        dataRetriever = new DataRetriever(this, url);
+        dataRetriever.fetch();
+
         ListView listView = getListView();
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                CalendarTopic item = data.get(position);
+                CalendarTopic item = ((ArrayList<CalendarTopic>)dataRetriever.getData()).get(position);
                 String node_id = item.getId();
 
                 Intent intent = new Intent(getApplicationContext(), CalendarEvents.class);
@@ -46,52 +47,9 @@ public class CalendarTopics extends ListActivity {
                 startActivity(intent);
             }
         });
-
-        new GetData().execute();
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            /**
-             * Updating parsed JSON data into ListView
-             * */
-
-            ArrayList<String> listData = new ArrayList<String>();
-            for (int i = 0; i < data.size(); i++) {
-                listData.add(data.get(i).getName());
-            }
-
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarTopics.this, android.R.layout.simple_list_item_1, listData);
-            setListAdapter(adapter);
-        }
-
-    }
-
-    private ArrayList<CalendarTopic> ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 // Hashmap for ListView
@@ -122,5 +80,15 @@ public class CalendarTopics extends ListActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+        ArrayList<String> listData = new ArrayList<String>();
+        for (int i = 0; i < data.size(); i++) {
+            listData.add(((ArrayList<CalendarTopic>)data).get(i).getName());
+        }
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarTopics.this, android.R.layout.simple_list_item_1, listData);
+        setListAdapter(adapter);
     }
 }
