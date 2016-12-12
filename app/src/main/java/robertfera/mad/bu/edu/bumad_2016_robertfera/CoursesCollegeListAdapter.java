@@ -41,46 +41,11 @@ public class CoursesCollegeListAdapter extends ArrayAdapter<CoursesCollege> {
 
         String uri = "@drawable/college_" + coursesCollege.getCode().toLowerCase();
         int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
-        Drawable res = context.getResources().getDrawable(imageResource);
-        imageView.setImageDrawable(res);
+        if (imageResource != 0) {
+            Drawable res = context.getResources().getDrawable(imageResource);
+            imageView.setImageDrawable(res);
+        }
 
         return rowView;
     };
-
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        private CoursesCollege coursesCollege;
-        private ImageView imageView;
-
-        public GetData(CoursesCollege coursesCollege, ImageView imageView) {
-            super();
-            this.coursesCollege = coursesCollege;
-            this.imageView = imageView;
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-
-            String uri = "@drawable/college_" + coursesCollege.getCode().toLowerCase();
-            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
-            Drawable res = context.getResources().getDrawable(imageResource);
-            this.imageView.setImageDrawable(res);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-        }
-
-    }
 }

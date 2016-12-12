@@ -59,7 +59,8 @@
         <activity android:name=".CalendarTopics" />
         <activity android:name=".CalendarEvents" />
         <activity android:name=".CalendarEventDetail" />
-        <activity android:name=".Map"></activity>
+        <activity android:name=".Map" />
+        <activity android:name=".AppInfo"></activity>
     </application>
 
 </manifest>

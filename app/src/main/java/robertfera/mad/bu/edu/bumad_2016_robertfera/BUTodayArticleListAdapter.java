@@ -31,7 +31,7 @@ public class BUTodayArticleListAdapter extends ArrayAdapter<Article> {
 
     public View getView(int position, View view, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View rowView = inflater.inflate(R.layout.butoday_article, null,true);
+        View rowView = inflater.inflate(R.layout.butoday_article, parent, false);
 
         TextView headline = (TextView) rowView.findViewById(R.id.headline);
         TextView subhead = (TextView) rowView.findViewById(R.id.subhead);

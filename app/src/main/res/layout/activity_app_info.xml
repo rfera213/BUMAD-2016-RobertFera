@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/activity_app_info"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="robertfera.mad.bu.edu.bumad_2016_robertfera.AppInfo">
+    <robertfera.mad.bu.edu.bumad_2016_robertfera.NavBar
+        android:id="@+id/navBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        custom:viewName="BU Mobile" />
+
+    <TextView
+        android:text="Version"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/app"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="11dp"
+        android:textSize="24sp"
+        android:id="@+id/version" />
+
+    <TextView
+        android:text="Copyright ME"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/version"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="12dp"
+        android:textSize="22sp"
+        android:textColor="#AAAAAA"
+        android:id="@+id/copyright" />
+
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/copyright"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentBottom="true"
+        android:id="@+id/buttons" />
+
+    <TextView
+        android:text="BU Mobile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:id="@+id/app"
+        android:textSize="30sp"
+        android:layout_below="@+id/navBar"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
