@@ -24,7 +24,10 @@ public class CourseDetail extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         String title = extras.getString("course_title");
         String together = extras.getString("course_together");
-        String description = extras.getString("course_description");
+        String description = "";
+        if (extras.getString("course_description") != null) {
+            description = extras.getString("course_description");
+        }
 
         courseTitle.setText(title);
         courseTogether.setText(together);

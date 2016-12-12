@@ -41,17 +41,17 @@ public class BUTodayArticleList extends ListActivity implements DataPasser {
 
         ListView listView = getListView();
         listView.setOnItemClickListener(new OnItemClickListener() {
-                                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                                                Article item = ((ArrayList<Article>)dataRetriever.getData()).get(position);
-                                                String url = item.getLink();
-                                                url = url + "uiwebview/";
+                Article item = ((ArrayList<Article>) dataRetriever.getData()).get(position);
+                String url = item.getLink();
+                url = url + "uiwebview/";
 
-                                                Intent intent = new Intent(getApplicationContext(), BUTodayArticleDetail.class);
-                                                intent.putExtra("url", url);
-                                                startActivity(intent);
-                                            }
-                                        });
+                Intent intent = new Intent(getApplicationContext(), BUTodayArticleDetail.class);
+                intent.putExtra("url", url);
+                startActivity(intent);
+            }
+        });
     }
 
     public ArrayList<?> ParseJSON(String json) {

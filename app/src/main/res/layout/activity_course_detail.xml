@@ -17,11 +17,13 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:id="@+id/together"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp"
         android:layout_below="@+id/name"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:id="@+id/together"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -29,14 +31,16 @@
         android:text="TextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="11dp"
+        android:id="@+id/description"
+        android:textSize="20sp"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp"
         android:layout_below="@+id/together"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="24dp"
-        android:id="@+id/description"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:textSize="20sp" />
+        android:layout_alignParentEnd="true" />
 
     <TextView
         android:text="TextView"
@@ -44,7 +48,12 @@
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:textSize="28sp"
+        android:paddingLeft="15sp"
+        android:paddingRight="15sp"
         android:layout_below="@+id/navBar"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="12dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

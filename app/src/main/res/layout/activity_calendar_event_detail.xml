@@ -10,7 +10,8 @@
     <robertfera.mad.bu.edu.bumad_2016_robertfera.NavBar
         android:id="@+id/navBar"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        custom:viewName="Calendar" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -19,8 +20,9 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:weightSum="1">
 
             <TextView
                 android:text="TextView"
@@ -31,7 +33,12 @@
                 android:layout_alignParentStart="true"
                 android:id="@+id/title"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_marginTop="15sp" />
 
             <TextView
                 android:text="TextView"
@@ -40,10 +47,12 @@
                 android:layout_below="@+id/title"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="14dp"
                 android:id="@+id/dateTime"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:layout_marginTop="5sp" />
 
             <TextView
                 android:text="TextView"
@@ -52,10 +61,13 @@
                 android:layout_below="@+id/dateTime"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="23dp"
                 android:id="@+id/description"
                 android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_alignParentEnd="true"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:textSize="20sp"
+                android:layout_marginTop="5sp" />
 
             <TextView
                 android:text="TextView"
@@ -64,68 +76,19 @@
                 android:layout_below="@+id/description"
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
-                android:layout_marginTop="24dp"
-                android:id="@+id/openTo" />
+                android:id="@+id/openTo"
+                android:paddingLeft="15sp"
+                android:paddingRight="15sp"
+                android:layout_marginTop="5sp"
+                android:textStyle="normal|italic" />
 
-            <Button
-                android:text="Button"
+            <ListView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/openTo"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="22dp"
-                android:id="@+id/email"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
+                android:layout_height="415dp"
+                android:id="@+id/buttons"
+                android:layout_weight="0.67"
+                android:layout_marginTop="15sp" />
 
-            <Button
-                android:text="Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/email"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="21dp"
-                android:id="@+id/phone"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:text="Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/phone"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="21dp"
-                android:id="@+id/location"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:text="Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/location"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="23dp"
-                android:id="@+id/register"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
-
-            <Button
-                android:text="Button"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/register"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="21dp"
-                android:id="@+id/url"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentEnd="true" />
         </LinearLayout>
     </ScrollView>
 

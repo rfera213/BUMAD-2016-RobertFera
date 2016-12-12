@@ -12,7 +12,6 @@ import java.util.ArrayList;
 
 public class DataRetriever extends AsyncTask<Void, Void, Void> {
     private Activity delegate;
-    private int tableID;
     private String url;
     private ArrayList<?> data;
     private String jsonStr;

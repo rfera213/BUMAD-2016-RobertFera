@@ -21,7 +21,6 @@ import android.net.Uri;
 import java.util.Arrays;
 import java.util.List;
 
-
 public class AppInfo extends AppCompatActivity {
 
     @Override
@@ -101,7 +100,7 @@ public class AppInfo extends AppCompatActivity {
     public void setMajor() {
         CharSequence majors[] = new CharSequence[] {"Computer Science"};
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick a color");
+        builder.setTitle("Pick a majorw");
         builder.setItems(majors, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

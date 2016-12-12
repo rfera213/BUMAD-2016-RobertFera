@@ -1,8 +1,14 @@
 package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
+import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
+import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
+import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Button;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +17,12 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class CalendarEventDetail extends AppCompatActivity {
+import java.util.ArrayList;
 
-    CalendarEvent data;
+public class CalendarEventDetail extends AppCompatActivity implements DataPasser {
 
-    // URL to get JSON
+    DataRetriever dataRetriever;
+
     private static String url = "http://www.bu.edu/bumobile/rpc/calendar/events.json.php";
 
     // JSON Node names
@@ -36,67 +43,20 @@ public class CalendarEventDetail extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // hide toolbar
+        getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+        getSupportActionBar().hide();
         setContentView(R.layout.activity_calendar_event_detail);
 
         Bundle extras = getIntent().getExtras();
         String node_id = extras.getString("id");
         url+= "?eid=" + node_id;
 
-        new GetData().execute();
+        dataRetriever = new DataRetriever(this, url);
+        dataRetriever.fetch();
     }
 
-    /**
-     * Async task class to get json by making HTTP call
-     */
-    private class GetData extends AsyncTask<Void, Void, Void> {
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-        }
-
-        @Override
-        protected Void doInBackground(Void... arg0) {
-            // Creating service handler class instance
-            WebRequest webreq = new WebRequest();
-
-            // Making a request to url and getting response
-            String jsonStr = webreq.makeWebServiceCall(url, WebRequest.GET);
-            data = ParseJSON(jsonStr);
-
-            return null;
-        }
-
-        @Override
-        protected void onPostExecute(Void result) {
-            super.onPostExecute(result);
-
-            TextView title = (TextView) findViewById(R.id.title);
-            TextView displayTime = (TextView) findViewById(R.id.dateTime);
-            TextView description = (TextView) findViewById(R.id.description);
-            TextView openTo = (TextView) findViewById(R.id.openTo);
-            Button phone = (Button) findViewById(R.id.phone);
-            Button email = (Button) findViewById(R.id.email);
-            Button location = (Button) findViewById(R.id.location);
-            Button register = (Button) findViewById(R.id.register);
-            Button url = (Button) findViewById(R.id.url);
-
-            if (data != null) {
-                title.setText(data.getSummary());
-                displayTime.setText(data.getDisplayDate() + " at " + data.getDisplayTime());
-                description.setText(data.getDescription());
-                openTo.setText(data.getOpenTo());
-                phone.setText(data.getPhone());
-                email.setText(data.getEmail());
-                location.setText(data.getLocation());
-                register.setText(data.getRegistration_url());
-                url.setText(data.getUrl());
-            }
-        }
-
-    }
-
-    private CalendarEvent ParseJSON(String json) {
+    public ArrayList<?> ParseJSON(String json) {
         if (json != null) {
             try {
                 JSONObject jsonObj = new JSONObject(json);
@@ -123,7 +83,9 @@ public class CalendarEventDetail extends AppCompatActivity {
                     if (c.has(TAG_EVENTURL)) url = c.getString(TAG_EVENTURL);
                     if (c.has(TAG_EVENTPHONE)) phone = c.getString(TAG_EVENTPHONE);
 
-                    return new CalendarEvent(id, summary, displayTime, displayDate, description, openTo, phone, email, location, registration_url, url);
+                    ArrayList<CalendarEvent> events = new ArrayList<CalendarEvent>();
+                    events.add(new CalendarEvent(id, summary, displayTime, displayDate, description, openTo, phone, email, location, registration_url, url));
+                    return events;
                 }
                 return null;
             } catch (JSONException e) {
@@ -134,5 +96,65 @@ public class CalendarEventDetail extends AppCompatActivity {
             Log.e("ServiceHandler", "Couldn't get any data from the url");
             return null;
         }
+    }
+
+    public void postFetch(ArrayList<?> data) {
+        TextView title = (TextView) findViewById(R.id.title);
+        TextView displayTime = (TextView) findViewById(R.id.dateTime);
+        TextView description = (TextView) findViewById(R.id.description);
+        TextView openTo = (TextView) findViewById(R.id.openTo);
+
+        if (data != null) {
+            CalendarEvent event = ((ArrayList<CalendarEvent>)data).get(0);
+            title.setText(event.getSummary());
+            displayTime.setText(event.getDisplayDate() + " at " + event.getDisplayTime());
+            description.setText(event.getDescription());
+            openTo.setText(event.getOpenTo());
+
+            String phone = event.getPhone();
+            String email = event.getEmail();
+            String location = event.getLocation();
+            String register = event.getRegistration_url();
+            String info = event.getUrl();
+
+            ArrayList<StringPair> cells = new ArrayList<>();
+            if (phone != null && phone.length() > 0) cells.add(new StringPair("Phone", phone));
+            if (email != null && email.length() > 0) cells.add(new StringPair("Email", email));
+            if (location != null && location.length() > 0) cells.add(new StringPair("Location", location));
+            if (register != null && register.length() > 0) cells.add(new StringPair("Register", register));
+            if (info != null && info.length() > 0) cells.add(new StringPair("Info", info));
+
+            ListView buttons = (ListView)findViewById(R.id.buttons);
+            ListAdapter adapter = new CalendarEventListAdapter(CalendarEventDetail.this, R.layout.detail_cell, cells);
+            buttons.setAdapter(adapter);
+
+            // reset url for next fetch
+            url = "http://www.bu.edu/bumobile/rpc/calendar/events.json.php";
+        }
+    }
+
+    public class CalendarEventListAdapter extends ArrayAdapter<StringPair> {
+
+        private Context context;
+        private ArrayList<StringPair> objects;
+
+        public CalendarEventListAdapter(Context context, int id, ArrayList<StringPair> objects) {
+            super(context, 0, objects);
+            this.objects = objects;
+            this.context = context;
+        }
+
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.detail_cell, parent, false);
+
+            TextView label = (TextView) rowView.findViewById(R.id.label);
+            TextView info = (TextView) rowView.findViewById(R.id.info);
+
+            label.setText(objects.get(position).getKey());
+            info.setText(objects.get(position).getValue());
+
+            return rowView;
+        };
     }
 }
