@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Button;
 import android.view.View;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v4.content.ContextCompat;
 import android.os.Bundle;
 
 import java.util.ArrayList;
@@ -62,7 +63,7 @@ public class DirectoryDetail extends AppCompatActivity {
 
         Intent intent = new Intent(Intent.ACTION_CALL);
         intent.setData(Uri.parse("tel: " +phoneNumber));
-        if (checkSelfPermission(Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) { startActivity(intent); }
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) == PackageManager.PERMISSION_GRANTED) { startActivity(intent); }
     }
 
     public void email(View view) {

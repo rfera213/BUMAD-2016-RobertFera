@@ -21,12 +21,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         // hide toolbar
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         getSupportActionBar().hide();
-
         setContentView(R.layout.activity_main);
+
         // ATTENTION: This was auto-generated to implement the App Indexing API.
         // See https://g.co/AppIndexing/AndroidStudio for more information.
         client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
@@ -60,6 +59,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void loadMap(View view) {
         Intent intent = new Intent(this, Map.class);
+        startActivity(intent);
+    }
+
+    public void loadEmergency(View view) {
+        Intent intent = new Intent(this, Emergency.class);
         startActivity(intent);
     }
 

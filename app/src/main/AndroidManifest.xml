@@ -11,6 +11,7 @@
     -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.SEND_SMS" />
 
     <application
         android:allowBackup="true"
@@ -60,7 +61,8 @@
         <activity android:name=".CalendarEvents" />
         <activity android:name=".CalendarEventDetail" />
         <activity android:name=".Map" />
-        <activity android:name=".AppInfo"></activity>
+        <activity android:name=".AppInfo" />
+        <activity android:name=".Emergency"></activity>
     </application>
 
 </manifest>
