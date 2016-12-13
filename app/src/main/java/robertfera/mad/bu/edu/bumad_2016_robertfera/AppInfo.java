@@ -47,7 +47,7 @@ public class AppInfo extends AppCompatActivity {
         ListAdapter adapter = new AppInfoListAdapter(AppInfo.this, R.layout.app_info, data);
         buttons.setAdapter(adapter);
 
-        final CharSequence majors[] = new CharSequence[] {"Computer Science", "Neuroscience"};
+        final CharSequence majors[] = new CharSequence[] {"Computer Science", "Neuroscience", "Reset"};
         final AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Pick a major");
         builder.setItems(majors, new DialogInterface.OnClickListener() {
@@ -113,7 +113,11 @@ public class AppInfo extends AppCompatActivity {
     public void setMajor(String major) {
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString("major", major);
+        if (major.equals("Reset")) {
+            editor.remove("major");
+        } else {
+            editor.putString("major", major);
+        }
         editor.commit();
     }
 
