@@ -7,8 +7,6 @@ import java.util.ArrayList;
  */
 
 public interface DataPasser {
-
     public ArrayList<?> ParseJSON(String json);
-
     public void postFetch(ArrayList<?> data);
 }

@@ -3,6 +3,9 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 import java.util.ArrayList;
 import java.io.InputStream;
 
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,14 +22,15 @@ import android.os.AsyncTask;
  * Created by rfera213 on 10/25/16.
  */
 
-public class BUTodayArticleListAdapter extends ArrayAdapter<Article> {
+public class BUTodayArticleListAdapter extends ArrayAdapter<Article> implements ResultFilter {
 
     private ArrayList<Article> objects;
+    private Context context;
 
     public BUTodayArticleListAdapter(Context context, int id, ArrayList<Article> objects) {
         super(context, 0, objects);
         this.objects = objects;
-
+        this.context = context;
     }
 
     public View getView(int position, View view, ViewGroup parent) {
@@ -41,6 +45,17 @@ public class BUTodayArticleListAdapter extends ArrayAdapter<Article> {
         headline.setText(article.getHead());
         subhead.setText(article.getDeck());
         new DownloadImageTask(imageView).execute(article.getThumbnail());
+
+        // user set major - need to check each article for keywords
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this.context);
+        String major = sharedPref.getString("major", "");
+        String strToCheck = headline.getText() + " " + subhead.getText();
+        if (major.length() > 0) {
+            Boolean isSpecial = this.isPreferred(major, strToCheck);
+            if (isSpecial) {
+                rowView.setBackgroundColor(Color.LTGRAY);
+            }
+        }
 
         return rowView;
     };
@@ -68,5 +83,22 @@ public class BUTodayArticleListAdapter extends ArrayAdapter<Article> {
         protected void onPostExecute(Bitmap result) {
             bmImage.setImageBitmap(result);
         }
+    }
+
+    public Boolean isPreferred(String major, String strToCheck) {
+
+        String[] keywords;
+        if (major.equals("Computer Science")) {
+            keywords = this.context.getResources().getStringArray(R.array.computer_science);
+        } else if (major.equals("Neuroscience")) {
+            keywords = this.context.getResources().getStringArray(R.array.neuroscience);
+        } else {
+            keywords = new String[0];
+        }
+
+        for (String keyword: keywords) {
+            if (strToCheck.toLowerCase().contains(keyword)) return true;
+        }
+        return false;
     }
 }

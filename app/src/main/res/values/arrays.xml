@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="computer_science">
+        <item>computer</item>
+        <item>computers</item>
+        <item>computer science</item>
+        <item>network</item>
+        <item>networking</item>
+        <item>cryptography</item>
+        <item>algorithm</item>
+        <item>database</item>
+        <item>programming</item>
+        <item>chemistry</item>
+    </string-array>
+
+    <string-array name="neuroscience">
+        <item>brain</item>
+        <item>neuron</item>
+        <item>neuroscience</item>
+        <item>cognitive</item>
+        <item>fmri</item>
+        <item>tms</item>
+        <item>eeg</item>
+    </string-array>
+</resources>

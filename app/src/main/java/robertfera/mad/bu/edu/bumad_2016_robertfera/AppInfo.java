@@ -2,10 +2,13 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.DialogInterface;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AlertDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,6 +46,16 @@ public class AppInfo extends AppCompatActivity {
         List<String> data = Arrays.asList("Submit Feedback", "Tell a Friend", "More Information", "Set Major");
         ListAdapter adapter = new AppInfoListAdapter(AppInfo.this, R.layout.app_info, data);
         buttons.setAdapter(adapter);
+
+        final CharSequence majors[] = new CharSequence[] {"Computer Science", "Neuroscience"};
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Pick a major");
+        builder.setItems(majors, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setMajor(majors[which].toString());
+            }
+        });
 
         buttons.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -90,24 +103,18 @@ public class AppInfo extends AppCompatActivity {
 
                     // major
                     case 3:
-                        setMajor();
+                        builder.show();
                         break;
                 }
             }
         });
     }
 
-    public void setMajor() {
-        CharSequence majors[] = new CharSequence[] {"Computer Science"};
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Pick a majorw");
-        builder.setItems(majors, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                // the user clicked on colors[which]
-            }
-        });
-        builder.show();
+    public void setMajor(String major) {
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString("major", major);
+        editor.commit();
     }
 
     public class AppInfoListAdapter extends ArrayAdapter<String> {
