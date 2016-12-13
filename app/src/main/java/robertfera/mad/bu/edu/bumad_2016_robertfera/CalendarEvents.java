@@ -97,7 +97,7 @@ public class CalendarEvents extends ListActivity implements DataPasser {
             }
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarEvents.this, android.R.layout.simple_list_item_1, listData);
+        ArrayAdapter<String> adapter = new SimpleListItemAdapter(CalendarEvents.this, listData, true);
         setListAdapter(adapter);
 
         // resets URL for next potential fetch

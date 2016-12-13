@@ -99,7 +99,7 @@ public class CoursesCollegeSubjectsAndDepartmentsList extends ListActivity imple
             listData.add(((ArrayList<CoursesCollegeSubject>)data).get(i).getSubject_name());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CoursesCollegeSubjectsAndDepartmentsList.this, android.R.layout.simple_list_item_1, listData);
+        ArrayAdapter<String> adapter = new SimpleListItemAdapter(CoursesCollegeSubjectsAndDepartmentsList.this, listData, false);
         setListAdapter(adapter);
     }
 }

@@ -88,7 +88,7 @@ public class CalendarTopics extends ListActivity implements DataPasser {
             listData.add(((ArrayList<CalendarTopic>)data).get(i).getName());
         }
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(CalendarTopics.this, android.R.layout.simple_list_item_1, listData);
+        ArrayAdapter<String> adapter = new SimpleListItemAdapter(CalendarTopics.this, listData, false);
         setListAdapter(adapter);
     }
 }
