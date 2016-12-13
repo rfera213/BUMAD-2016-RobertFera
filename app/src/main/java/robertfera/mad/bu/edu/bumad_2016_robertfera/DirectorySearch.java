@@ -2,7 +2,6 @@ package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.AdapterView;
@@ -70,7 +69,7 @@ public class DirectorySearch extends ListActivity implements DataPasser {
             @Override
             public boolean onQueryTextSubmit(String s) {
                 url+= "?q=" + s;
-                dataRetriever.setUrl(url);
+                dataRetriever = new DataRetriever(DirectorySearch.this, url);
                 dataRetriever.fetch();
                 sv.clearFocus(); // prevents the double fetch
                 url = "http://www.bu.edu/bumobile/rpc/directory/search.json.php"; // resets URL
