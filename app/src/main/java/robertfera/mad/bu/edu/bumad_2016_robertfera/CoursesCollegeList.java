@@ -1,13 +1,20 @@
 package robertfera.mad.bu.edu.bumad_2016_robertfera;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -88,5 +95,39 @@ public class CoursesCollegeList extends ListActivity implements DataPasser {
     public void postFetch(ArrayList<?> data) {
         ListAdapter adapter = new CoursesCollegeListAdapter(CoursesCollegeList.this, R.layout.courses_college, (ArrayList<CoursesCollege>) data);
         setListAdapter(adapter);
+    }
+
+    public class CoursesCollegeListAdapter extends ArrayAdapter<CoursesCollege> {
+
+        private Context context;
+        private ArrayList<CoursesCollege> objects;
+
+        public CoursesCollegeListAdapter(Context context, int id, ArrayList<CoursesCollege> objects) {
+            super(context, 0, objects);
+            this.objects = objects;
+            this.context = context;
+
+        }
+
+        public View getView(int position, View view, ViewGroup parent) {
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            View rowView = inflater.inflate(R.layout.courses_college, null,true);
+
+            TextView college = (TextView) rowView.findViewById(R.id.college);
+            ImageView imageView = (ImageView) rowView.findViewById(R.id.imageView);
+
+            CoursesCollege coursesCollege = objects.get(position);
+
+            college.setText(coursesCollege.getName());
+
+            String uri = "@drawable/college_" + coursesCollege.getCode().toLowerCase();
+            int imageResource = context.getResources().getIdentifier(uri, null, context.getPackageName());
+            if (imageResource != 0) {
+                Drawable res = context.getResources().getDrawable(imageResource);
+                imageView.setImageDrawable(res);
+            }
+
+            return rowView;
+        };
     }
 }

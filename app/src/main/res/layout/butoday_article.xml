@@ -8,17 +8,20 @@
         android:id="@+id/thumbnail"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@mipmap/ic_launcher" />
+        android:background="@mipmap/ic_launcher"
+        android:layout_centerVertical="true" />
 
     <TextView
         android:id="@+id/subhead"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
         android:layout_width="300dp"
         android:text="Article Subhead"
         android:layout_below="@+id/headline"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_toRightOf="@+id/thumbnail"
+        android:layout_toEndOf="@+id/thumbnail"
+        android:paddingLeft="5sp" />
 
     <TextView
         android:id="@+id/headline"
@@ -28,8 +31,11 @@
         android:textStyle="bold"
         android:layout_marginTop="11dp"
         android:text="Article Headline"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentRight="false"
+        android:layout_alignParentTop="false"
+        android:layout_alignParentEnd="true"
+        android:layout_alignLeft="@+id/subhead"
+        android:layout_alignStart="@+id/subhead"
+        android:paddingLeft="5sp" />
 
 </RelativeLayout>
