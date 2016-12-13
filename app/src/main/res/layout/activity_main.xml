@@ -146,22 +146,24 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/maps"
-                        android:onClick="loadMap"
-                        android:id="@+id/mapsModule"
+                        app:srcCompat="@drawable/directory"
+                        android:id="@+id/directoryModule"
+                        android:onClick="loadDirectorySearch"
                         android:background="#000000"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_alignTop="@+id/favoritesModule"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentEnd="true" />
+                        android:layout_below="@+id/busModule"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_row="2"
+                        android:layout_column="0" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Maps"
+                        android:text="Directory"
                         android:textSize="20dp"
                         android:textColor="#FFFFFF"
                         android:gravity="center" />
@@ -177,21 +179,24 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/favorites"
-                        android:id="@+id/favoritesModule"
+                        app:srcCompat="@drawable/safety"
+                        android:id="@+id/emergencyModule"
+                        android:onClick="loadEmergency"
                         android:background="#000000"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_alignTop="@+id/directoryModule"
-                        android:layout_alignLeft="@+id/butodayModule"
-                        android:layout_alignStart="@+id/butodayModule" />
+                        android:layout_below="@+id/directoryModule"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentStart="true"
+                        android:layout_row="2"
+                        android:layout_column="1" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Favorites"
+                        android:text="Emergency"
                         android:textSize="20dp"
                         android:textColor="#FFFFFF"
                         android:gravity="center" />
@@ -246,24 +251,22 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/directory"
-                        android:id="@+id/directoryModule"
-                        android:onClick="loadDirectorySearch"
+                        app:srcCompat="@drawable/maps"
+                        android:onClick="loadMap"
+                        android:id="@+id/mapsModule"
                         android:background="#000000"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_below="@+id/busModule"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_row="2"
-                        android:layout_column="0" />
+                        android:layout_alignTop="@+id/favoritesModule"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentEnd="true" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Directory"
+                        android:text="Maps"
                         android:textSize="20dp"
                         android:textColor="#FFFFFF"
                         android:gravity="center" />
@@ -279,24 +282,21 @@
                     <ImageButton
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        app:srcCompat="@drawable/safety"
-                        android:id="@+id/emergencyModule"
-                        android:onClick="loadEmergency"
+                        app:srcCompat="@drawable/favorites"
+                        android:id="@+id/favoritesModule"
                         android:background="#000000"
                         android:layout_marginRight="5dp"
                         android:layout_marginTop="5dp"
                         android:layout_marginBottom="0dp"
                         android:layout_marginLeft="5dp"
-                        android:layout_below="@+id/directoryModule"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentStart="true"
-                        android:layout_row="2"
-                        android:layout_column="1" />
+                        android:layout_alignTop="@+id/directoryModule"
+                        android:layout_alignLeft="@+id/butodayModule"
+                        android:layout_alignStart="@+id/butodayModule" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:text="Emergency"
+                        android:text="Favorites"
                         android:textSize="20dp"
                         android:textColor="#FFFFFF"
                         android:gravity="center" />

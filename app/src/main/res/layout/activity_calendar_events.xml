@@ -11,7 +11,7 @@
         android:id="@+id/navBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        custom:viewName="Calendar" />
+        custom:viewName="Calendar Events" />
 
     <ListView
         android:id="@android:id/list"
