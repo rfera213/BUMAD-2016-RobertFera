@@ -39,7 +39,13 @@ public class NavBar extends RelativeLayout implements View.OnClickListener {
         inflate(getContext(), R.layout.navbar, this);
         this.textView = (TextView)findViewById(R.id.textView);
         this.infoButton = (ImageButton)findViewById(R.id.imageButton);
-        this.infoButton.setOnClickListener(this);
+
+        if (getContext() instanceof MainActivity) {
+            this.infoButton.setOnClickListener(this);
+        } else {
+            infoButton.setVisibility(0);
+        }
+
 
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs, R.styleable.NavBar, 0, 0);
         try {

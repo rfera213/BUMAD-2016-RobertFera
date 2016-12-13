@@ -17,15 +17,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/college"
-        android:textSize="16sp"
+        android:textSize="18sp"
         android:layout_alignBaseline="@+id/imageView"
-        android:layout_toEndOf="@+id/imageView"
         android:layout_marginBottom="35dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="false"
-        android:layout_alignBottom="@+id/imageView"
-        android:paddingLeft="5sp" />
+        android:paddingLeft="5sp"
+        android:layout_toRightOf="@+id/imageView"
+        android:layout_toEndOf="@+id/imageView"
+        android:paddingRight="5sp" />
 
 </RelativeLayout>
