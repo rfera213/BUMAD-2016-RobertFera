@@ -27,8 +27,10 @@ public class Emergency extends AppCompatActivity {
     }
 
     public void textBUDP(View view) {
-        SmsManager smsManager = SmsManager.getDefault();
-        smsManager.sendTextMessage("847411", null, "sms message", null, null);
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_GRANTED) {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage("847411", null, "sms message", null, null);
+        }
     }
 
     public void callHealth(View view) {

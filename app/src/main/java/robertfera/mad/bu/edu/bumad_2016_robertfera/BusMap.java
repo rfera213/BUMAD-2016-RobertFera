@@ -5,6 +5,7 @@ import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,7 +38,7 @@ public class BusMap extends FragmentActivity implements OnMapReadyCallback {
     private static final String TAG_RESULT = "Result";
 
     // how often to update buses
-    private final int delay = 3000;
+    private final int delay = 5000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,13 +90,6 @@ public class BusMap extends FragmentActivity implements OnMapReadyCallback {
 
     public void refreshMarkers(String json) {
 
-        // clears markers
-        for (int i = 0; i < markers.size(); i++) {
-            Marker marker = markers.get(i);
-            marker.remove();   // remove from map
-            markers.remove(i); // remove from local arraylist
-        }
-
         try {
             JSONObject jsonObj = new JSONObject(json);
 
@@ -108,8 +102,8 @@ public class BusMap extends FragmentActivity implements OnMapReadyCallback {
                 JSONObject c = results.getJSONObject(i);
 
                 LatLng bus = new LatLng(c.getDouble("lat"), c.getDouble("lng"));
-                Marker marker = mMap.addMarker(new MarkerOptions().position(bus).icon(BitmapDescriptorFactory.fromResource(R.drawable.livebus)).title("Bus"));
-                markers.add(marker);
+                Marker markerToUpdate = markers.get(i);
+                markerToUpdate.setPosition(bus);
             }
         } catch (JSONException e) {
             e.printStackTrace();
@@ -142,7 +136,28 @@ public class BusMap extends FragmentActivity implements OnMapReadyCallback {
         protected void onPostExecute(Void result) {
             super.onPostExecute(result);
 
-            refreshMarkers(busesData);
+            if (markers.size() == 0) {
+                try {
+                    JSONObject jsonObj = new JSONObject(busesData);
+
+                    // Getting JSON Array node
+                    JSONObject resultSet = jsonObj.getJSONObject(TAG_RESULTSET);
+                    JSONArray results = resultSet.getJSONArray(TAG_RESULT);
+
+                    // looping through data
+                    for (int i = 0; i < results.length(); i++) {
+                        JSONObject c = results.getJSONObject(i);
+
+                        LatLng bus = new LatLng(c.getDouble("lat"), c.getDouble("lng"));
+                        Marker marker = mMap.addMarker(new MarkerOptions().position(bus).icon(BitmapDescriptorFactory.fromResource(R.drawable.livebus)).title("Bus"));
+                        markers.add(marker);
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            } else {
+                refreshMarkers(busesData);
+            }
 
         }
     }
